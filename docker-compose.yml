@@ -1,0 +1,20 @@
+version: '3.6'
+
+services:
+  petsdoption-web:
+    image: nginx:1.17.10-alpine
+    container_name: petsdoption-web
+    volumes:
+      - ./:/var/www/html:cached
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      - VIRTUAL_HOST=petsdoption.test
+  petsdoption-php:
+    container_name: petsdoption-php
+    image: cyberduck/php-fpm-laravel:7.2
+    volumes:
+    - ./:/var/www/html
+networks:
+  default:
+    external:
+      name: docker_development
